@@ -78,18 +78,22 @@
             return cat;
         }
 
-        window.addEventListener("mousedown", (e) => {
-            if (!isClickable || gameOverTriggered) return;
-            isClickable = false;
-            const rect = render.canvas.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const newCat = createCat(x, 50, currentLevel);
-            World.add(engine.world, newCat);
-            setTimeout(() => { 
-                currentLevel = Math.floor(Math.random() * 3);
-                isClickable = true; 
-            }, 800);
-        });
+       window.addEventListener("mousedown", (e) => { dropCat(e.clientX); });
+       window.addEventListener("touchstart", (e) => { dropCat(e.touches[0].clientX); });
+      function dropCat(clientX) {
+      if (!isClickable || gameOverTriggered) return;
+      isClickable = false;
+
+      const rect = render.canvas.getBoundingClientRect();
+      const x = clientX - rect.left;
+      const newCat = createCat(x, 50, currentLevel);
+      World.add(engine.world, newCat);
+
+      setTimeout(() => { 
+          currentLevel = Math.floor(Math.random() * 3);
+          isClickable = true; 
+      }, 800);
+      }
 
         // 進化のロジック
         Events.on(engine, 'collisionStart', (event) => {
@@ -128,4 +132,5 @@
 </body>
 
 </html>
+
 
