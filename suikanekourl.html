@@ -48,6 +48,27 @@
         Runner.run(runner, engine);
 
         // 壁の作成
+
+
+        // ゲームオーバーの点線（高さ150pxの位置）
+       const lineY = 150;
+
+       // 毎フレームの更新処理
+       Events.on(engine, 'afterUpdate', () => {
+       let isGameOver = false;
+    
+       // 画面内のすべての物体をチェック
+       Composite.allBodies(engine.world).forEach(body => {
+        // 猫（静止していないもの）がラインを超えているか
+        if (body.label.startsWith("cat_") && !body.isStatic && body.position.y < lineY) {
+            // 3秒間超え続けたらゲームオーバーにするためのカウント（簡易版）
+            isGameOver = true;
+        }
+    });
+
+    // 背景に点線を描画（Renderの後に処理を追加する代わりに、簡易的にラインを表示）
+    // ※今回は視覚的にわかりやすくするため、HTML要素としてラインを追加する修正をお勧めします。
+});
         const ground = Bodies.rectangle(WIDTH/2, HEIGHT + 25, WIDTH, 50, { isStatic: true, render: { fillStyle: '#deb887' } });
         const leftWall = Bodies.rectangle(-25, HEIGHT/2, 50, HEIGHT, { isStatic: true });
         const rightWall = Bodies.rectangle(WIDTH + 25, HEIGHT/2, 50, HEIGHT, { isStatic: true });
@@ -126,5 +147,6 @@
 </body>
 
 </html><
+
 
 
