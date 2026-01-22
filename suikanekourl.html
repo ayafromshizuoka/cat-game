@@ -41,7 +41,9 @@
             { radius: 70, score: 1024 }, { radius: 80, score: 2048 }
         ];
 
-        const engine = Engine.create();
+       // 【修正箇所】40行目付近：重力を地球と同じ設定（1）にします
+const engine = Engine.create();
+engine.world.gravity.y = 1; // これで猫が下に落ちるようになります！ 
         const render = Render.create({
             element: document.body,
             engine: engine,
@@ -137,6 +139,7 @@ World.add(engine.world, [ground, leftWall, rightWall]);
 </body>
 
 </html>
+
 
 
 
