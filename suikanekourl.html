@@ -84,8 +84,8 @@ World.add(engine.world, [ground, leftWall, rightWall]);
             sprite: {
                 texture: `${IMG_BASE_URL}cat${level + 1}.png`,
                 // 見た目のサイズは元の radius に合わせることで、物理的な隙間を作ります
-                xScale: (data.radius * 2) / 100, 
-                yScale: (data.radius * 2) / 100
+                xScale: (data.radius * 2) / 300, 
+                yScale: (data.radius * 2) / 300
             }
         }
     });
@@ -147,6 +147,7 @@ World.add(engine.world, [ground, leftWall, rightWall]);
 </body>
 
 </html>
+
 
 
 
