@@ -68,22 +68,30 @@ World.add(engine.world, [ground, leftWall, rightWall]);
         let isClickable = true;
         let gameOverTriggered = false;
 
-        function createCat(x, y, level) {
-            const data = CAT_DATA[level];
-            const cat = Bodies.circle(x, y, data.radius, {
-                restitution: 0.4,
-                label: "cat_" + level,
-                render: {
-                    sprite: {
-                        texture: `${IMG_BASE_URL}cat${level + 1}.png`,
-                        xScale: (data.radius * 2) / 100,
-                        yScale: (data.radius * 2) / 100
-                    }
-                }
-            });
-            cat.level = level;
-            return cat;
+    function createCat(x, y, level) {
+    const data = CAT_DATA[level];
+    
+    // 【洋子さんのアイデア反映】
+    // radius（物理的な当たり判定）を画像サイズより「少しだけ小さく」設定します。
+    // これにより、猫たちが3〜5枚重なった時に、画像同士が少しめり込んで「ぎゅうぎゅう」に見えます。
+    const hitRadius = data.radius * 0.9; 
+
+    const cat = Bodies.circle(x, y, hitRadius, {
+        restitution: 0.5, // ビー玉のような跳ね返り具合
+        friction: 0.05,  // 摩擦を減らしてコロコロ転がるようにします
+        label: "cat_" + level,
+        render: {
+            sprite: {
+                texture: `${IMG_BASE_URL}cat${level + 1}.png`,
+                // 見た目のサイズは元の radius に合わせることで、物理的な隙間を作ります
+                xScale: (data.radius * 2) / 100, 
+                yScale: (data.radius * 2) / 100
+            }
         }
+    });
+    cat.level = level;
+    return cat;
+}    
 
        window.addEventListener("mousedown", (e) => { dropCat(e.clientX); });
        window.addEventListener("touchstart", (e) => { dropCat(e.touches[0].clientX); });
@@ -139,6 +147,7 @@ World.add(engine.world, [ground, leftWall, rightWall]);
 </body>
 
 </html>
+
 
 
 
