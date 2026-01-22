@@ -50,7 +50,7 @@
         const runner = Runner.create();
         Render.run(render);
         Runner.run(runner, engine);
-        const ground = Bodies.rectangle(WIDTH/2, HEIGHT + 25, WIDTH, 50, { isStatic: true, render: { fillStyle: '#deb887' } });
+        const ground = Bodies.rectangle(WIDTH/2, HEIGHT - 5, WIDTH, 10, { isStatic: true, render: { fillStyle: '#deb887' } });
         const leftWall = Bodies.rectangle(-25, HEIGHT/2, 50, HEIGHT, { isStatic: true });
         const rightWall = Bodies.rectangle(WIDTH + 25, HEIGHT/2, 50, HEIGHT, { isStatic: true });
         World.add(engine.world, [ground, leftWall, rightWall]);
@@ -131,6 +131,7 @@
 </body>
 
 </html>
+
 
 
 
